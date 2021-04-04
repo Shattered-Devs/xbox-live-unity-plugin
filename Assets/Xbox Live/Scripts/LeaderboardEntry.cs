@@ -5,6 +5,7 @@ using Microsoft.Xbox.Services.Leaderboard;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Microsoft.Xbox.Services.Client
@@ -50,7 +51,7 @@ namespace Microsoft.Xbox.Services.Client
         }
         IEnumerator LoadGamerpic()
         {
-            var www = new WWW(gamerpicUrl);
+            var www = UnityWebRequestTexture.GetTexture(gamerpicUrl);
             yield return null;
 
             while (!www.isDone)
@@ -65,7 +66,7 @@ namespace Microsoft.Xbox.Services.Client
                     throw new Exception(www.error);
                 }
 
-                var t = www.texture;
+                var t = DownloadHandlerTexture.GetContent(www);
                 var r = new Rect(0, 0, t.width, t.height);
                 this.gamerpicImage.color = Color.white;
                 this.gamerpicImage.sprite = Sprite.Create(t, r, Vector2.zero);

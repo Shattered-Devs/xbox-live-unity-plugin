@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Microsoft.Xbox.Services.Client
@@ -128,7 +129,7 @@ namespace Microsoft.Xbox.Services.Client
 
         public IEnumerator LoadGamerpic(string gamerpicUrl)
         {
-            var www = new WWW(gamerpicUrl);
+            var www = UnityWebRequestTexture.GetTexture(gamerpicUrl);
             yield return null;
 
             while (!www.isDone)
@@ -146,7 +147,7 @@ namespace Microsoft.Xbox.Services.Client
                             new Exception(www.error));
                 }
 
-                var t = www.texture;
+                var t = DownloadHandlerTexture.GetContent(www);
                 var r = new Rect(0, 0, t.width, t.height);
                 this.GamerPicImage.color = Color.white;
                 this.GamerPicImage.sprite = Sprite.Create(t, r, Vector2.zero);

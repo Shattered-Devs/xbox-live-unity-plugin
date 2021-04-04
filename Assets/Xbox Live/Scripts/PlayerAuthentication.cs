@@ -12,6 +12,7 @@ using Microsoft.Xbox.Services;
 using Microsoft.Xbox.Services.Social.Manager;
 
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Microsoft.Xbox.Services.Client
@@ -240,14 +241,14 @@ namespace Microsoft.Xbox.Services.Client
             this.playerNumberText.color = ThemeHelper.GetThemeBaseFontColor(this.Theme);
             var socialUser = userGroup.GetUsersFromXboxUserIds(new List<string> { this.xboxLiveUser.XboxUserId })[0];
 
-            var www = new WWW(socialUser.DisplayPicRaw + "&w=128");
+            var www = UnityWebRequestTexture.GetTexture(socialUser.DisplayPicRaw + "&w=128");
             yield return www;
 
             try
             {
                 if (www.isDone && string.IsNullOrEmpty(www.error))
                 {
-                    var t = www.texture;
+                    var t = DownloadHandlerTexture.GetContent(www);
                     var r = new Rect(0, 0, t.width, t.height);
                     this.gamerpic.sprite = Sprite.Create(t, r, Vector2.zero);
                 }

@@ -11,8 +11,6 @@ namespace Assets.Xbox_Live.Editor
 
     using Microsoft.Xbox.Services;
 
-    using SyntaxTree.VisualStudio.Unity.Bridge;
-
     using UnityEditor;
     using UnityEditor.Callbacks;
 
@@ -25,11 +23,6 @@ namespace Assets.Xbox_Live.Editor
     [InitializeOnLoad]
     public class XboxLivePostProcessing
     {
-        static XboxLivePostProcessing()
-        {
-            ProjectFilesGenerator.ProjectFileGeneration += AddXboxServicesConfig;
-        }
-
         /// <summary>
         /// Adds the XboxServices.config file to the generated project file.
         /// </summary>

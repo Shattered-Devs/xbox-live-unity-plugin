@@ -19,7 +19,7 @@ namespace Microsoft.Xbox.Services.Client
     {
         public int PlayerNumber = 1;
         protected bool isLocalUserAdded = false;
-        private bool LocalUserAddedSetup = false;
+        // private bool LocalUserAddedSetup = false;
         internal XboxLiveUser xboxLiveUser;
         /// <summary>
         /// The name of the stat that is published to the stats service.
